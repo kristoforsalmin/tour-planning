@@ -35,6 +35,10 @@ export const useToursStore = defineStore('tours', () => {
     return true
   }
 
+  function hasTourWithId(id: string) {
+    return getTourIndexById(id) > -1
+  }
+
   function getTourIndexById(id: string) {
     return tours.value.findIndex(tour => tour.id === id)
   }
@@ -45,6 +49,7 @@ export const useToursStore = defineStore('tours', () => {
     addTour,
     getTourById,
     updateTour,
-    removeTourById
+    removeTourById,
+    hasTourWithId
   }
 })
