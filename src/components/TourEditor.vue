@@ -27,7 +27,7 @@ const newTour: Ref<Tour> = ref({
   ...props.tour
 })
 
-const someOriginLocation = computed(() => newTour.value.originLocation.length > 0)
+const originLocationIsFilled = computed(() => newTour.value.originLocation.length > 0)
 const noAvailableDrivers = computed(() => newTour.value.originLocation.length === 0 || filteredDrivers.value.length === 0)
 const editing = computed(() => Boolean(props.tour))
 const today = formatDateForMachines(new Date())
@@ -84,7 +84,7 @@ filterDriversByLocation(newTour.value.originLocation)
         @input="updateDrivers"
       >
       <div
-        v-if="someOriginLocation && noAvailableDrivers"
+        v-if="originLocationIsFilled && noAvailableDrivers"
         id="origin-location-note"
         class="form-control__note text-with-icon"
       >
