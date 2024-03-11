@@ -12,6 +12,8 @@ import { useDriversStore } from '@/stores/drivers'
 import { useToursStore } from '@/stores/tours'
 import { RouteName } from '@/constants/router'
 
+import illustration from '@/assets/illustrations/delivery-truck.svg'
+
 const { drivers, anyDrivers } = storeToRefs(useDriversStore())
 const { tours } = storeToRefs(useToursStore())
 
@@ -35,7 +37,7 @@ const learning = computed(() => drivers.value.length === 1 && tours.value.length
     </template>
   </LayoutWork>
 
-  <LayoutLanding v-else image="/illustrations/delivery-truck.svg">
+  <LayoutLanding v-else :image="illustration">
     <template #text>
       <p>No&nbsp;drivers added so&nbsp;far</p>
     </template>

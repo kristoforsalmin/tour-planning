@@ -2,11 +2,12 @@
 import { RouterLink } from 'vue-router'
 import { RouteName } from '@/constants/router'
 import LayoutLanding from '@/components/LayoutLanding.vue'
+import illustration from '@/assets/illustrations/my-current-location.svg'
 </script>
 
 <template>
   <h1 class="home-title">Tour Planning</h1>
-  <LayoutLanding image="/illustrations/my-current-location.svg">
+  <LayoutLanding :image="illustration">
     <template #text>
       <p>Hi 👋 Let‘s start by&nbsp;adding the drivers</p>
     </template>

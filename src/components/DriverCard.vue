@@ -30,8 +30,6 @@ const initials = computed(() => (
 </template>
 
 <style land="scss" scoped>
-@use "@/assets/components/card";
-
 .driver-card {
   display: flex;
   gap: 1rem 0.75rem;

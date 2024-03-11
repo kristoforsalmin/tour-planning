@@ -61,9 +61,6 @@ const date = computed(() => formatDateForHumans(new Date(props.tour.date)))
 </template>
 
 <style lang="scss" scoped>
-@use "@/assets/components/card";
-@use "@/assets/components/link";
-
 .tour-card__customer {
   margin-bottom: 1rem;
   font-size: var(--font-size-large);

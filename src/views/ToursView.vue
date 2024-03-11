@@ -11,6 +11,8 @@ import { useToursStore } from '@/stores/tours'
 import { RouteName } from '@/constants/router'
 import type { Tour } from '@/interfaces/tour'
 
+import illustration from '@/assets/illustrations/destination.svg'
+
 const store = useToursStore()
 const { tours, anyTours } = storeToRefs(store)
 const { removeTourById } = store
@@ -33,7 +35,7 @@ function removeTour(tour: Tour) {
     </template>
   </LayoutWork>
 
-  <LayoutLanding v-else image="/illustrations/destination.svg">
+  <LayoutLanding v-else :image="illustration">
     <template #text>
       <p>No&nbsp;tours have been created so&nbsp;far</p>
     </template>
