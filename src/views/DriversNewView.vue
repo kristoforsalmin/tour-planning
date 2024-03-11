@@ -19,7 +19,7 @@ function saveDriver(driver: Driver) {
 </script>
 
 <template>
-<RouterLink :to="{ name: RouteName.Drivers }" class="link text-with-icon">
+  <RouterLink :to="{ name: RouteName.Drivers }" class="link text-with-icon">
     <IconChevronLeft />
     All Drivers
   </RouterLink>
