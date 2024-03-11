@@ -15,7 +15,7 @@ const route = useRoute()
 const { getTourById, updateTour } = useToursStore()
 const tourId = ref(route.params.id as string)
 
-function update(tour: Tour) {
+function saveTour(tour: Tour) {
   updateTour(tour)
   router.push({ name: RouteName.Tours })
 }
@@ -32,7 +32,7 @@ function update(tour: Tour) {
       <h1>Edit Tour</h1>
     </template>
     <template #content>
-      <TourEditor :tour="getTourById(tourId)" @save="update" />
+      <TourEditor :tour="getTourById(tourId)" @save="saveTour" />
     </template>
   </LayoutWork>
 </template>
