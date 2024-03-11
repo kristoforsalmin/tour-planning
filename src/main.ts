@@ -14,5 +14,5 @@ app.use(router)
 app.mount('#root')
 
 addEventListener('beforeunload', (event) => {
-  event.returnValue = 'You will your data after reload'
+  event.returnValue = 'You will lose your data after reload'
 })
