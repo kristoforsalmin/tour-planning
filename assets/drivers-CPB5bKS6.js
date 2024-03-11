@@ -1,1 +1,0 @@
-import{C as u,k as v,b as t}from"./index-RLcr1OWv.js";const c=u("drivers",()=>{const r=v([]),n=t(()=>r.value.length>0),o=t(()=>r.value.map(e=>e.location));function i(e){r.value.push(e)}function s(e){return r.value.find(a=>a.id===e)}return{drivers:r,anyDrivers:n,driverLocations:o,addDriver:i,getDriverById:s}});export{c as u};
