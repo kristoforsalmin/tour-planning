@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import IconMapPin from './IconMapPin.vue';
+import IconMapPin from './IconMapPin.vue'
 import createRandomHexColor from '@/utilities/createRandomColor'
 import type { Driver } from '@/interfaces/driver'
 
