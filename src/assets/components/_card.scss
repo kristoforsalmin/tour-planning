@@ -1,0 +1,17 @@
+.card {
+  --shadow-color: 0deg 0% 77%;
+
+  padding: 1rem 1.25rem;
+  background-color: var(--color-white);
+  border-radius: var(--border-radius);
+  box-shadow:
+    0.3px 0.5px 0.7px hsl(var(--shadow-color) / 15%),
+    0.7px 1.5px 2px -0.7px hsl(var(--shadow-color) / 17%),
+    1.7px 3.4px 4.6px -1.3px hsl(var(--shadow-color) / 19%),
+    3.9px 7.8px 10.5px -2px hsl(var(--shadow-color) / 21%);
+
+  @media (width <= 40em) {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+}

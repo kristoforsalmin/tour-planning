@@ -1,7 +1,9 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { storeToRefs } from 'pinia'
 import { RouterLink } from 'vue-router'
 
+import LayoutLanding from '@/components/LayoutLanding.vue'
+import LayoutWork from '@/components/LayoutWork.vue'
 import NavigationBar from '@/components/NavigationBar.vue'
 import TourList from '@/components/TourList.vue'
 
@@ -14,22 +16,29 @@ const { tours, anyTours } = storeToRefs(store)
 const { removeTourById } = store
 
 function removeTour(tour: Tour) {
-  const removed = removeTourById(tour.id)
-  alert(removed ? 'Tour was removed' : 'Tour wasn’t removed')
+  if (confirm('Do you really want to remove this tour?')) removeTourById(tour.id)
 }
 </script>
 
 <template>
   <NavigationBar />
-  <h1>Available Tours</h1>
-  <div v-if="anyTours">
-    <RouterLink :to="{ name: RouteName.ToursNew }">Create a new tour</RouterLink>
-    <TourList :tours="tours" @remove="removeTour" />
-  </div>
-  <div v-else>
-    <p>
-      No tours yet.
-      <RouterLink :to="{ name: RouteName.ToursNew }">Create a first one</RouterLink>
-    </p>
-  </div>
+
+  <LayoutWork v-if="anyTours">
+    <template #title>
+      <h1>Planned Tours</h1>
+      <RouterLink :to="{ name: RouteName.ToursNew }" class="button button--primary">Add Tour</RouterLink>
+    </template>
+    <template #content>
+      <TourList :tours="tours" @remove="removeTour" />
+    </template>
+  </LayoutWork>
+
+  <LayoutLanding v-else image="/illustrations/destination.svg">
+    <template #text>
+      <p>No&nbsp;tours have been created so&nbsp;far</p>
+    </template>
+    <template #button>
+      <RouterLink :to="{ name: RouteName.ToursNew }" class="button button--primary">Start Planning</RouterLink>
+    </template>
+  </LayoutLanding>
 </template>

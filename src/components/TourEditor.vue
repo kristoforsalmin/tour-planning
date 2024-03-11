@@ -1,6 +1,8 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ref, computed, type Ref } from 'vue'
 import { storeToRefs } from 'pinia'
+
+import IconExclamationCircle from './IconExclamationCircle.vue'
 
 import { useDriversStore } from '@/stores/drivers'
 import useFilteredDrivers from '@/composables/useFilteredDrivers'
@@ -15,82 +17,113 @@ const emit = defineEmits<{ save: [tour: Tour] }>()
 const { drivers, driverLocations } = storeToRefs(useDriversStore())
 const { filteredDrivers, filterDriversByLocation } = useFilteredDrivers(drivers)
 
-const today = formatDateForMachines(new Date())
-
 const newTour: Ref<Tour> = ref({
   id: createId(),
   customer: '',
-  date: today,
+  date: '',
   originLocation: '',
   destinationLocation: '',
   driver: '',
   ...props.tour
 })
 
+const someOriginLocation = computed(() => newTour.value.originLocation.length > 0)
+const noAvailableDrivers = computed(() => newTour.value.originLocation.length === 0 || filteredDrivers.value.length === 0)
 const editing = computed(() => Boolean(props.tour))
+const today = formatDateForMachines(new Date())
+
+function updateDrivers() {
+  removeSelectedDriver()
+  filterDriversByLocation(newTour.value.originLocation)
+}
+
+function removeSelectedDriver() {
+  newTour.value.driver = ''
+}
 
 filterDriversByLocation(newTour.value.originLocation)
 </script>
 
 <template>
-  <h1>
-    <span v-if="editing">Edit</span>
-    <span v-else>Create</span>
-    Tour
-  </h1>
-  <form @submit.prevent="emit('save', newTour)">
-    <label>
-      Customer
+  <form class="form" @submit.prevent="emit('save', newTour)">
+    <div class="form-control">
+      <label class="form-control__label" for="customer">Customer name</label>
       <input
-        type="text"
+        id="customer"
         v-model.trim="newTour.customer"
+        class="text-field"
+        type="text"
         required
       >
-    </label>
-    <label>
-      Date
+    </div>
+
+    <div class="form-control">
+      <label class="form-control__label" for="date">Shipment date</label>
       <input
+        id="date"
+        v-model.trim="newTour.date"
+        class="text-field"
         type="date"
-        v-model="newTour.date"
         :min="today"
         required
       >
-    </label>
-    <label>
-      From
+    </div>
+
+    <div class="form-control">
+      <label class="form-control__label" for="origin-location">Location from</label>
       <input
-        type="text"
-        list="locations"
-        pattern="[A-Za-z\s]+"
+        id="origin-location"
         v-model.trim="newTour.originLocation"
-        @input="filterDriversByLocation(newTour.originLocation)"
-        required
-      >
-    </label>
-    <datalist id="locations">
-      <option
-        v-for="location in driverLocations"
-        :key="location"
-        :value="location"
-      ></option>
-    </datalist>
-    <label>
-      To
-      <input
+        class="text-field"
         type="text"
+        list="origin-locations"
+        placeholder="e.g., Berlin"
         pattern="[A-Za-z\s]+"
+        aria-describedby="origin-location-note"
+        required
+        @input="updateDrivers"
+      >
+      <div
+        v-if="someOriginLocation && noAvailableDrivers"
+        id="origin-location-note"
+        class="form-control__note text-with-icon"
+      >
+        <IconExclamationCircle />
+        There are no&nbsp;drivers in&nbsp;this location
+      </div>
+      <datalist id="origin-locations">
+        <option
+          v-for="location in driverLocations"
+          :key="location"
+          :value="location"
+        ></option>
+      </datalist>
+    </div>
+
+    <div class="form-control">
+      <label class="form-control__label" for="destination-location">Location to</label>
+      <input
+        id="destination-location"
         v-model.trim="newTour.destinationLocation"
+        class="text-field"
+        type="text"
+        placeholder="e.g., Stuttgart"
+        pattern="[A-Za-z\s]+"
         required
       >
-    </label>
-    <label>
-      Driver
+    </div>
+
+    <div class="form-control">
+      <label class="form-control__label" for="driver">Driver</label>
       <select
+        id="driver"
         v-model="newTour.driver"
-        :disabled="newTour.originLocation.length === 0 || filteredDrivers.length === 0"
+        class="select"
+        aria-describedby="driver-note"
+        :disabled="noAvailableDrivers"
         required
       >
-        <option value="">Choose a driver</option>
+        <option value="" selected>Select a driver</option>
         <option
           v-for="driver in filteredDrivers"
           :key="driver.id"
@@ -99,10 +132,15 @@ filterDriversByLocation(newTour.value.originLocation)
           {{ driver.name }}
         </option>
       </select>
-    </label>
-    <button :disabled="newTour.driver.length === 0">
-      <span v-if="editing">Save Tour</span>
-      <span v-else>Create Tour</span>
+      <div id="driver-note" class="form-control__note">
+        You can only assign drivers registered at&nbsp;the same departure location
+      </div>
+    </div>
+
+    <button class="form__submit-button button button--primary" :disabled="noAvailableDrivers">
+      <span v-if="editing">Save</span>
+      <span v-else>Create</span>
+      Tour
     </button>
   </form>
 </template>

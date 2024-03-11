@@ -4,7 +4,7 @@ import App from '@/App.vue'
 import store from '@/store'
 import router from '@/router'
 
-import '@/assets/main.css'
+import '@/assets/main.scss'
 
 const app = createApp(App)
 
@@ -13,8 +13,6 @@ app.use(router)
 
 app.mount('#root')
 
-if (process.env.NODE_ENV === 'production') {
-  addEventListener('beforeunload', (event) => {
-    event.returnValue = ''
-  })
-}
+addEventListener('beforeunload', (event) => {
+  event.returnValue = 'You will your data after reload'
+})

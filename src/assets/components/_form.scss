@@ -1,0 +1,11 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.25rem;
+  width: 100%;
+  max-width: 35ch;
+}
+
+.form__submit-button {
+  margin-top: 0.5rem;
+}

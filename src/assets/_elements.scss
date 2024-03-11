@@ -1,0 +1,66 @@
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: var(--font-size);
+}
+
+body {
+  padding: 3rem 1.5rem 6rem;
+  margin: 0;
+  font-family: var(--font-family);
+  line-height: var(--line-height);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (width <= 40em) {
+    padding: 1.5rem 1.25rem 5rem;
+  }
+}
+
+h1,
+h2 {
+  margin: 0;
+  line-height: 1;
+  color: var(--color-text-darker);
+  letter-spacing: -0.015em;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+svg {
+  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
+}
+
+main {
+  max-width: 40em;
+  margin-right: auto;
+  margin-left: auto;
+}

@@ -1,0 +1,43 @@
+:root {
+
+  /* Typography
+     ========================================================================== */
+
+  --font-family: system-ui, Arial, Helvetica, sans-serif;
+  --font-size: calc(112.5% + 0.25vw);
+  --line-height: 1.5;
+
+  @media (width <= 40em) {
+    --font-size: 112.5%;
+  }
+
+  /* Font sizes
+     ========================================================================== */
+
+  --font-size-x-small: 80%;
+  --font-size-small: 90%;
+  --font-size-medium: 100%;
+  --font-size-large: 125%;
+  --font-size-x-large: 150%;
+
+  /* Colors
+     ========================================================================== */
+
+  --color-background: rgb(250 250 250);
+  --color-brand: oklch(59% 0.22 250.26deg);
+  --color-red: rgb(238 51 44);
+  --color-text-darker: rgb(60 60 60);
+  --color-text-lighter: rgb(130 130 130);
+  --color-text: rgb(90 90 90);
+  --color-white: rgb(255 255 255);
+
+  /* Border
+    ========================================================================== */
+
+  --border-radius: 0.3em;
+
+  /* Transition
+    ========================================================================== */
+
+  --duration: 0.15s;
+}
